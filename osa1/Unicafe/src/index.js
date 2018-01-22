@@ -20,24 +20,6 @@ const Button = (props) => {
 }
 
 
-class Nimi extends React.Component {
-    
-    render()  { 
-            return(
-            
-        <div>
-            <h2>Statistiikka</h2>
-            <p>{this.props.lista[0].nimi}: {this.props.lista[0].arvo}</p>        
-            <p>{this.props.lista[1].nimi}: {this.props.lista[1].arvo}</p>
-            <p>{this.props.lista[2].nimi}: {this.props.lista[2].arvo}</p>
-            <p>{this.props.lista[3].nimi}: {(this.props.lista[3].arvo).toFixed(1)}</p>
-            <p>{this.props.lista[4].nimi}: {Math.round(this.props.lista[4].arvo * 100 / 100).toFixed(1)} {'%'}</p>
-       
-        </div>);
-    }
-}
-
-
 class App extends React.Component {
     constructor() {
         super();
@@ -108,20 +90,36 @@ class App extends React.Component {
         statistiikka: newStatistics
         });
 
-   }
-
-
+   }  
 
 
     render() {
-        return (
-            <div>
-                <Button lisaa={this.lisaaArvoon} pos={this.positive} avg={this.average}/>
-                <Nimi lista={this.state.statistiikka.lista}/>
-            </div>
-        );
+        if(this.state.statistiikka.lista[0,1,2,3,4].arvo > 0){
+            return (
+                <div>
+                    <Button lisaa={this.lisaaArvoon} pos={this.positive} avg={this.average}/>
+                    <div>
+                        <h2>Statistiikka</h2>
+                        <p>{this.state.statistiikka.lista[0].nimi}: {this.state.statistiikka.lista[0].arvo}</p>
+                        <p>{this.state.statistiikka.lista[1].nimi}: {this.state.statistiikka.lista[1].arvo}</p>
+                        <p>{this.state.statistiikka.lista[2].nimi}: {this.state.statistiikka.lista[2].arvo}</p>
+                        <p>{this.state.statistiikka.lista[3].nimi}: {(this.state.statistiikka.lista[3].arvo).toFixed(1)}</p>
+                        <p>{this.state.statistiikka.lista[4].nimi}: {Math.round(this.state.statistiikka.lista[4].arvo * 100 / 100).toFixed(1)} {'%'}</p>   
+                    </div>
+                </div>
+                )
+            }
+            return(
+                <div>
+                    <Button lisaa={this.lisaaArvoon} pos={this.positive} avg={this.average}/>
+                    
+                    <h2>Statistiikka</h2>
+                    <div>Yhtään palautetta ei ole annettu</div>
+                </div>
+            )
+            
+        }
     }
 
-}
 
 ReactDOM.render(<App/>, document.getElementById('root'));
