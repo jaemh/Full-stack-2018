@@ -1,5 +1,5 @@
 import React from 'react';
-import App from './src/App'
+import ReactDOM from 'react-dom'
 
 
 
@@ -11,12 +11,32 @@ const Button = (props) => {
     }
 
     return(
+        <button onClick={() => funktio(props.index)}>{props.label}</button>  
+    )
+}
+
+const Statistic = (props) => {
+    return (
+        <p>{props.name}: {props.value} </p>
+    )
+}
+
+const Statistics = (props) => {
+    let rows = props.state.statistiikka.lista[0,1,2,3,4].arvo > 0 ? 
         <div>
-            <h2>Anna palautetta</h2>
-            <button onClick={() => funktio(0)}>Hyvä</button>  
-            <button onClick={() => funktio(1)}>Neutraali</button>
-            <button onClick={() => funktio(2)}>Huono</button>
-        </div>  
+            <Statistic name={props.state.statistiikka.lista[0].nimi} value={props.state.statistiikka.lista[0].arvo} />
+            <Statistic name={props.state.statistiikka.lista[1].nimi} value={props.state.statistiikka.lista[1].arvo} />
+            <Statistic name={props.state.statistiikka.lista[2].nimi} value={props.state.statistiikka.lista[2].arvo} />
+            <Statistic name={props.state.statistiikka.lista[3].nimi} value={(props.state.statistiikka.lista[3].arvo).toFixed(1)} />
+            <Statistic name={props.state.statistiikka.lista[4].nimi} value={Math.round(props.state.statistiikka.lista[4].arvo * 100 / 100).toFixed(1) + "%"} />
+        </div>
+        : "Ei yhtään palautetta annettu";
+
+    return(
+        <div>
+            <h2>Statistiikka</h2>
+            {rows}
+        </div>
     )
 }
 
@@ -95,32 +115,19 @@ class App extends React.Component {
 
 
     render() {
-        if(this.state.statistiikka.lista[0,1,2,3,4].arvo > 0){
-            return (
-                <div>
-                    <Button lisaa={this.lisaaArvoon} pos={this.positive} avg={this.average}/>
-                    <div>
-                        <h2>Statistiikka</h2>
-                        <p>{this.state.statistiikka.lista[0].nimi}: {this.state.statistiikka.lista[0].arvo}</p>
-                        <p>{this.state.statistiikka.lista[1].nimi}: {this.state.statistiikka.lista[1].arvo}</p>
-                        <p>{this.state.statistiikka.lista[2].nimi}: {this.state.statistiikka.lista[2].arvo}</p>
-                        <p>{this.state.statistiikka.lista[3].nimi}: {(this.state.statistiikka.lista[3].arvo).toFixed(1)}</p>
-                        <p>{this.state.statistiikka.lista[4].nimi}: {Math.round(this.state.statistiikka.lista[4].arvo * 100 / 100).toFixed(1)} {'%'}</p>   
-                    </div>
-                </div>
-                )
-            }
-            return(
-                <div>
-                    <Button lisaa={this.lisaaArvoon} pos={this.positive} avg={this.average}/>
-                    
-                    <h2>Statistiikka</h2>
-                    <div>Yhtään palautetta ei ole annettu</div>
-                </div>
-            )
+
+        return (
+            <div>
+                <h2>Anna palautetta</h2>
+                <Button lisaa={this.lisaaArvoon} pos={this.positive} avg={this.average} index="0" label="Hyvä"/>
+                <Button lisaa={this.lisaaArvoon} pos={this.positive} avg={this.average} index="1" label="Neutraali"/>
+                <Button lisaa={this.lisaaArvoon} pos={this.positive} avg={this.average} index="2" label="Huono"/>
+                <Statistics state={this.state}/>
+            </div>
+        );
             
-        }
     }
+}
 
 
 ReactDOM.render(<App/>, document.getElementById('root'));

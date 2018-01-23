@@ -5,7 +5,9 @@ class App extends React.Component {
     super(props)
     this.state = {
       persons: [
-        { name: 'Arto Hellas' }
+        { 
+          name: 'Arto Hellas' 
+        }
       ],
       newName: ''
     }
@@ -17,7 +19,7 @@ class App extends React.Component {
         <h2>Puhelinluettelo</h2>
         <form>
           <div>
-            nimi: <input />
+            nimi: {this.state.persons.map(name => <li key={name.id}> name={name}</li>)}
           </div>
           <div>
             <button type="submit">lisää</button>

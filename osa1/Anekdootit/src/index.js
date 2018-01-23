@@ -5,9 +5,9 @@ class App extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-        selected: 0,
-        votes: 0,
-        
+            selected: 0,
+            votes: 0,
+            
         }
     }
 
@@ -16,7 +16,7 @@ class App extends React.Component {
         let randomAnecdote = Math.floor(Math.random() * this.props.anecdotes.length);
         
         this.setState({
-        selected: randomAnecdote
+            selected: randomAnecdote
         });
     }
 
@@ -29,13 +29,19 @@ class App extends React.Component {
         })
     }
 
-    mostVote = (props) => {
+    mostVoted = (props) => {
         let list = this.state.selected;
-        Math.max(this.props.anecdotes[list].votes)
+        let mostVotedAnecdote;
+
+        this.props.anecdotes.forEach((anecdote => {
+            if(mostVotedAnecdote) {
+                mostVotedAnecdote = (anecdote.votes > mostVotedAnecdote.votes) ? anecdote : mostVotedAnecdote;
+            } else {
+                mostVotedAnecdote = anecdote;
+            }        
+        }));
     
-        this.setState({
-        votes: list
-        })
+        return mostVotedAnecdote ? mostVotedAnecdote.text + ' Votes: ' + mostVotedAnecdote.votes  : "";
     }
     
     render() {
@@ -43,7 +49,9 @@ class App extends React.Component {
         return (
         <div>
             <Text anecdote={this.props.anecdotes[this.state.selected]} />
-            <Button press={this.valitse} add={this.addVote} anecdote={this.props.anecdotes[this.state.selected]} toinen={this.mostVote}/>
+            <Button press={this.valitse} add={this.addVote} anecdote={this.props.anecdotes[this.state.selected]}/>
+            <h2>Anecdote with most vote:</h2>
+            <p>{this.mostVoted()}</p>
         </div>
         )
     }
@@ -55,16 +63,10 @@ class App extends React.Component {
             
         }
 
-        const toinen = () => {
-            props.mostVote();
-           }
-
         return(
             <div>
                 <button onClick={() => props.press()}>Next anecdote</button>
                 <button onClick={() => funktio()}>Vote</button>
-                <h2>Anecdote with most vote:</h2>
-                <p>{toinen}</p>
             </div>
         )
     }
@@ -75,7 +77,7 @@ class App extends React.Component {
             <div>
                 <p>{props.anecdote.text}</p>
                 <p>has {props.anecdote.votes} votes</p>
-                <p>has {} votes</p>
+                
             </div>
         )
     }
@@ -83,7 +85,7 @@ class App extends React.Component {
 
     const anecdotes =  [
         {
-            text: 'If it hurts, do it more often',
+            text: 'If it hurts, do it more often.',
             votes: 0,
             
         },
