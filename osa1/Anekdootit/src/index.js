@@ -1,5 +1,7 @@
-import React from 'react'
-import ReactDOM from 'react-dom'
+import React from 'react';
+import ReactDOM from 'react-dom';
+import Button from './Components/Button';
+import Text from './Components/Text';
 
 class App extends React.Component {
     constructor(props) {
@@ -7,7 +9,6 @@ class App extends React.Component {
         this.state = {
             selected: 0,
             votes: 0,
-            
         }
     }
 
@@ -30,7 +31,6 @@ class App extends React.Component {
     }
 
     mostVoted = (props) => {
-        let list = this.state.selected;
         let mostVotedAnecdote;
 
         this.props.anecdotes.forEach((anecdote => {
@@ -41,7 +41,7 @@ class App extends React.Component {
             }        
         }));
     
-        return mostVotedAnecdote ? mostVotedAnecdote.text + ' Votes: ' + mostVotedAnecdote.votes  : "";
+        return mostVotedAnecdote ? mostVotedAnecdote.text  + 'Votes: ' + mostVotedAnecdote.votes  : ""
     }
     
     render() {
@@ -56,32 +56,6 @@ class App extends React.Component {
         )
     }
 }   
-
-    const Button = (props) => {
-        const funktio = () => {
-            props.add();
-            
-        }
-
-        return(
-            <div>
-                <button onClick={() => props.press()}>Next anecdote</button>
-                <button onClick={() => funktio()}>Vote</button>
-            </div>
-        )
-    }
-
-    const Text = (props) => {
-        
-        return (
-            <div>
-                <p>{props.anecdote.text}</p>
-                <p>has {props.anecdote.votes} votes</p>
-                
-            </div>
-        )
-    }
-    
 
     const anecdotes =  [
         {
