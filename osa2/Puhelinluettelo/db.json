@@ -6,14 +6,14 @@
       "number": "040-1234561"
     },
     {
-      "id": 2,
-      "name": "Jaana",
-      "number": "040-1234562"
+      "name": "Maija Mehiläinen",
+      "number": "123456",
+      "id": 4
     },
     {
-      "name": "Maija",
-      "number": "123456",
-      "id": 3
+      "name": "John Doe",
+      "number": "1234567",
+      "id": 5
     }
   ]
 }
