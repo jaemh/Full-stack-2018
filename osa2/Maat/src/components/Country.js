@@ -1,12 +1,14 @@
 import React from 'react';
 
+
+
 const Country = ({country}) => {
     let style = {
         width: 200,
         heigh: 200,
     }
 
-	return ( 
+   return ( 
             <div>
                 <h3>{country.name}</h3>
                 <p>Capital: {country.capital}</p>

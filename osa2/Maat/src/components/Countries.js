@@ -1,10 +1,14 @@
 import React from 'react';
 
-const Countries = ({countries}) => {
+const Countries = ({countries, click, country}) => {
+	let showCountry = () => {
+	   click(country);
+	} 
+
 	return (
-		<div>
-			<p>{countries.name}</p>
-        </div>
+	 <div>
+	   <p style={{cursor:'pointer'}} onClick={showCountry}>{countries.name}</p>
+         </div>
 	);
 }
 
