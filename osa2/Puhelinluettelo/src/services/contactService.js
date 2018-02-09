@@ -1,5 +1,5 @@
 import axios from 'axios';
-const baseUrl = 'http://localhost:3001/persons';
+const baseUrl = '/api/persons';
 
   const getAll = () => {
       return axios.get(baseUrl);
@@ -13,7 +13,7 @@ const baseUrl = 'http://localhost:3001/persons';
 
   const updateContact = (updatedContact) => {
     return axios
-        .put(baseUrl + '/' +updatedContact.id, updatedContact)
+        .put(baseUrl + '/' + updatedContact.id, updatedContact)
         .then(response => response.data);
   }
 

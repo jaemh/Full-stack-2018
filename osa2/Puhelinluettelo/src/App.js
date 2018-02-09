@@ -119,7 +119,7 @@ class App extends React.Component {
         
         return(
             <div>
-               <div class='message'>{this.state.message}</div>
+               <div className='message'>{this.state.message}</div>
                <h2>Puhelinluettelo</h2>
                 <input type='text'
                     placeholder = 'Search' 
