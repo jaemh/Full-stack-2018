@@ -23,13 +23,6 @@ describe.skip('list helpers', () => {
     return favorite;
   };
 
-  /*const mostBlogs = (blogs) => {
-    let popularAuthor = {};
-    blogs.forEach(authors => {
-    });
-  };
-  */
-
   const mostBlogs = (blogs) => {
 
     let popularAuthor = {

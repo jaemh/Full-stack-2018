@@ -6,6 +6,8 @@ const express = require('express');
 const app = express();
 const blogsRouter = require('./controllers/Blogs');
 const config = require('./utils/config');
+const usersRouter = require('./controllers/Users');
+const loginRouter = require('./controllers/Login');
 
 mongoose
   .connect(config.mongoUrl)
@@ -16,10 +18,23 @@ mongoose
 
 mongoose.Promise = global.Promise;
 
+function tokenExtractor(request, response, next) {
+  const authorization = request.get('authorization');
+  if (authorization && authorization.toLowerCase().startsWith('bearer ')) {
+    request.token = authorization.substring(7);
+  }
+
+  next();
+}
+
 app.use(cors());
 app.use(bodyParser.json());
 app.use(express.static('build'));
+app.use(tokenExtractor);
 app.use('/api/blogs', blogsRouter);
+app.use('/api/users', usersRouter);
+app.use('/api/login', loginRouter);
+
 
 const server = http.createServer(app);
 

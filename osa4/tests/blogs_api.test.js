@@ -29,6 +29,15 @@ test('blogs are returned', async () => {
     .expect('Content-Type', /application\/json/)
 });
 
+/*4.12* blogilistan laajennus, osa 1
+Refaktoroi projektin testit siten, että ne eivät enää 
+ole riippuvaisia siitä, että HTTP GET -operaatioiden 
+testit suoritetaan ennen uusien blogien lisäämisen testaamista. 
+Määrittele myös sopivia apumetodeja, joiden avulla saat 
+poistettua testeistä copypastea:
+
+Testit voivat tämän tehtävän jälkeen noudattaa esim. 
+osan 4 luvun Testien refaktorointi tyyliä */
 
 test('blogs get a new blog', async () => {
   const initialRes = await api
@@ -69,8 +78,7 @@ test('if likes is empty return 0', async () => {
       .send(newBlog)
       .expect(201)
 
-
-  expect(newBlogFromResponse.body.likes).toBe(0);
+expect(newBlogFromResponse.body.likes).toBe(0);
     
 });
 
