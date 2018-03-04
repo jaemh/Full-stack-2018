@@ -38,7 +38,7 @@ class App extends React.Component {
 
     showCountry(showCountryClick){
         let foundCountry= this.state.maat.some(country => country.name === showCountryClick.name)
-            
+        
         if(foundCountry) {
             return <div>{country => <Country country={country} key={country.name}/>}</div>;       
         }

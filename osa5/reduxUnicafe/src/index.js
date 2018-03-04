@@ -1,0 +1,2 @@
+import Statistiikka from './Statistiikka';
+

@@ -104,17 +104,17 @@ const mostBlogs = (blogs) => {
 };
 
 blogsRouter.delete('/:id', async (request, response) => {
-  if(!request.token) {
-    return response.status(400).send({ error: 'Not authorized'});
-  }
-  
-  const decodedToken = jwt.verify(request.token, process.env.SECRET);
-
   try {
     const blogToRemove = await Blog.findById(request.params.id)
-          .populate('user', { username: 1, name: 1 });
+          .populate('user', { username: 1, name: 1 });          
     
-    if(blogToRemove.user._id.toString() === decodedToken.id) {
+    if(!request.token && blogToRemove.user) {
+      return response.status(400).send({ error: 'Not authorized'});
+    }
+    
+    const decodedToken = jwt.verify(request.token, process.env.SECRET);
+    
+    if((blogToRemove.user._id.toString() === decodedToken.id) || !blogToRemove.user)  {
       await blogToRemove.remove();
       response.status(200).end();
     } else {

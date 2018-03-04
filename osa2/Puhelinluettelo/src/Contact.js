@@ -5,7 +5,8 @@ const Contact = ({person, onDelete}) => {
     let deleteContact = () => {
         onDelete(person);
     }
-    return <li>
+    return 
+    <li>
         {person.name} {person.number}
         <button onClick={deleteContact} type="submit" >Delete</button>
     </li>
