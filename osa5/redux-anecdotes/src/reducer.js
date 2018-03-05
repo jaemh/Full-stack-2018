@@ -25,18 +25,23 @@ const reducer = (state = initialState, action) => {
   
   switch (action.type) {
     case 'VOTE':
-    const foundVoteId = [...state].findIndex(anecdote => anecdote.id === action.id);
-      if(foundVoteId){
-         this.votes++;
+      const foundVoteIndex = state.findIndex(anecdote => anecdote.id === action.data.id);
+      if(foundVoteIndex !== -1){
+         state[foundVoteIndex].votes++;
       
-         [...state].sort((a, b) => {
+         state.sort((a, b) => {
           return a.votes < b.votes
         })
-			};
-		
+      }
+      break;
+
     case 'NEW_ANECDOTE':
       const newAnecdote = asObject(action.data.content)
       return state.concat(newAnecdote)
+      break;
+
+    default: 
+      console.log('didn\'t map to any action');
   }
   return state
 }
