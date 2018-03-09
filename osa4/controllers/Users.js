@@ -2,18 +2,6 @@ const bcrypt = require('bcrypt');
 const usersRouter = require('express').Router();
 const User = require('../models/User');
 
-/*4.17 blogilistan laajennus, osa 6
-Laajenna blogia siten, että blogiin tulee tieto sen lisänneestä käyttäjästä.
-
-Muokkaa blogien lisäystä osan 4 luvun populate tapaan 
-siten, että blogin lisäämisen yhteydessä määritellään 
-blogin lisääjäksi joku järjestelmän tietokannassa 
-olevista käyttäjistä (esim. ensimmäisenä löytyvä). 
-Tässä vaiheessa ei ole väliä kuka käyttäjistä määritellään 
-lisääväksi. Toiminnallisuus viimeistellään tehtävässä 4.19.
-*/
-
-
 usersRouter.get('/', async (request, response) => {
     const listOfUsers = await User
     .find({})

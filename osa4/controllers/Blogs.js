@@ -1,12 +1,14 @@
 const blogsRouter = require('express').Router();
 const Blog = require('../models/Blog');
 const User = require('../models/User');
+const Comment = require('../models/Comments');
 const jwt = require('jsonwebtoken');
 
 blogsRouter.get('/', async (request, response) => {
   const blogs = await Blog
   .find({})
   .populate('user', { username: 1, name: 1 })
+  .populate('comment')
   response.json(blogs.map(Blog.format))
 });
 
@@ -27,12 +29,28 @@ blogsRouter.get('/:id', async (request, response) => {
   }
 })
 
+blogsRouter.post('/:id/comment', async (request, response) => {
 
-/*4.7* apufunktioita ja yksikkötestejä, osa 5
-Määrittele funktio mostLikes joka saa parametrikseen 
-taulukollisen blogeja. Funktio selvittää kirjoittajan, 
-kenen blogeilla on eniten likejä. Funktion paluuarvo kertoo 
-myös suosikkiblogaajan likejen yhteenlasketun määrän: */
+  const text = request.body.text;
+  const blog = await Blog.findById(request.params.id)
+
+  if (!blog || !text ) {
+    response.status(400).send({error: 'invalid blog id or empty comment'});  
+  }
+
+  const newComment = new Comment({
+      text: text,
+      blog: blog
+  })
+
+  const savedComment = await newComment.save();
+
+  blog.comments = blog.comments.concat(savedComment._id)
+  await blog.save();
+
+  response.json(Comment.format(newComment))
+  response.status(200).send();
+})
 
 blogsRouter.post('/', async (request, response) => {
   const body = request.body;
@@ -57,7 +75,8 @@ blogsRouter.post('/', async (request, response) => {
       author: body.author,
       url: body.url,
       likes: body.likes || 0,
-      user: user
+      user: user,
+      
     });
 
     if(!body.title || !body.url) {
@@ -79,7 +98,7 @@ blogsRouter.post('/', async (request, response) => {
     }
   }
 });
-
+  
 const mostBlogs = (blogs) => {
 
   let popularAuthor = {
