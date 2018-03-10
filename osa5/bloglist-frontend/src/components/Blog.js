@@ -8,8 +8,8 @@ class Blog extends React.Component {
     super(props)
     this.state = {
       blogs: [],
-      comment: [],
-      newComment: null
+      newComment: null,
+      comment: []
     }
   }
 
@@ -22,7 +22,7 @@ class Blog extends React.Component {
     })
   }
 
- deleteBlog = (blogToDelete) => {   
+ deleteBlog =  (blogToDelete) => {   
   let deleteBlogMessage = window.confirm("Are you sure you want to delete blog?");
   
   if(deleteBlogMessage) {
@@ -115,7 +115,7 @@ class Blog extends React.Component {
                 </div>
                   )
                 } else {
-                   return <ExpandedBlog blog={blog} changeComment={this.changeComment} comment={() => this.addCommentToBlog(blog)} likeBlog={this.likeBlog.bind(this)} removeExpand={this.expandBlog.bind(this)} />
+                   return <ExpandedBlog key={blog.id} blog={blog} changeComment={this.changeComment} comment={() => this.addCommentToBlog(blog)} likeBlog={this.likeBlog.bind(this)} removeExpand={this.expandBlog.bind(this)} />
                 }
               })
             }

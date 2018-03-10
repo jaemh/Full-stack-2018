@@ -40,7 +40,7 @@ class LoginForm extends React.Component {
     this.setState({username: event.target.value});
     }
 
-changePasswors = (event) => {
+  changePasswors = (event) => {
     this.setState({password: event.target.value});
     }
 

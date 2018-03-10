@@ -12,9 +12,9 @@ const ExpandedUser= ({user, removeExpandUser }) => {
            <ul onClick={closeUserOnClick}>
                 <h2>Added blogs</h2>
                 <li>{user.username}</li>
-                <li>{user.blogs[0].title}</li>
-                <li>{user.blogs[0].url}</li>
-                <li>{user.blogs[0].author}</li>
+                <li>{user.blogs.title}</li>
+                <li>{user.blogs.url}</li>
+                <li>{user.blogs.author}</li>
             </ul>
         </div>
     )

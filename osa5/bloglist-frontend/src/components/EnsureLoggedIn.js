@@ -2,7 +2,7 @@ import React from 'react';
 
 class EnsureLoggedIn extends React.Component {
     componentDidMount() {
-      const { dispatch, currentURL, router } = this.props
+      const { router } = this.props
   
       let isLoggedIn = JSON.parse(window.localStorage.getItem('loggedBlogAppUser'));
 
@@ -15,7 +15,6 @@ class EnsureLoggedIn extends React.Component {
         let isLoggedIn = JSON.parse(window.localStorage.getItem('loggedBlogAppUser'));
         
         if (isLoggedIn) {
-            console.log(this.props)
             if(this.props.children) {
                 return this.props.children
             }

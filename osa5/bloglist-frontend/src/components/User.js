@@ -36,15 +36,14 @@ class User extends React.Component {
     
     render() {
         return (
-
           <div>
+          <Navigation />
           <h2>Käyttäjät</h2>
-            {this.props.children}
               {this.state.users.map((user, index) => {
                 if(index === this.state.expandedUserIndex){
                   return <ExpandedUser key={user.id} user={user} blog={user.blogs} removeExpandUser={this.expandUser.bind(this)} />
                 }else {
-                  return <div><Link to={"/users"}>{user.username}</Link></div>
+                  return <div><Link to={"/blogs"}>{user.username}</Link></div>
                 }
               })}
           </div>

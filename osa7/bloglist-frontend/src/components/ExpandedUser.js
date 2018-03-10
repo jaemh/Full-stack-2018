@@ -1,26 +1,22 @@
-import React from 'react';
+import './style.css';
 
-const ExpandedUser= ({user, removeExpandUser }) => {
-    
-    let closeUserOnClick = (e) => {
-        e.preventDefault();
-        removeExpandUser(user);
-    }
-   
+const ExpandedUser = ({ user })=>{
+
+    const listOfBlogs = user.blogs.map(user => {
+        return <div>
+            <li>{user.title}</li> 
+            <li>{user.url}</li> 
+            <li>{user.likes}</li>
+            <li>{user.author}</li> 
+        </div>;
+    });
     return(
         <div >
-           <ul onClick={closeUserOnClick}>
-                <h2>Added blogs</h2>
-                <li>{user.username}</li>
-                <li>{user.blogs[0].title}</li>
-                <li>{user.blogs[0].url}</li>
-                <li>{user.blogs[0].author}</li>
+            <ul>
+                <li className='user'>{listOfBlogs}</li>
             </ul>
         </div>
-    )
-}
-
-
-
+    );
+};
 
 export default ExpandedUser;

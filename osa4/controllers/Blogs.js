@@ -8,7 +8,6 @@ blogsRouter.get('/', async (request, response) => {
   const blogs = await Blog
   .find({})
   .populate('user', { username: 1, name: 1 })
-  .populate('comment')
   response.json(blogs.map(Blog.format))
 });
 
@@ -29,17 +28,18 @@ blogsRouter.get('/:id', async (request, response) => {
   }
 })
 
-blogsRouter.post('/:id/comment', async (request, response) => {
-
+/*blogsRouter.post('/:id/comment', async (request, response) => {
   const text = request.body.text;
+
   const blog = await Blog.findById(request.params.id)
+  .populate('comment'); 
 
   if (!blog || !text ) {
     response.status(400).send({error: 'invalid blog id or empty comment'});  
   }
 
   const newComment = new Comment({
-      text: text,
+      text: request.body.text,
       blog: blog
   })
 
@@ -49,8 +49,10 @@ blogsRouter.post('/:id/comment', async (request, response) => {
   await blog.save();
 
   response.json(Comment.format(newComment))
+  
   response.status(200).send();
 })
+*/
 
 blogsRouter.post('/', async (request, response) => {
   const body = request.body;

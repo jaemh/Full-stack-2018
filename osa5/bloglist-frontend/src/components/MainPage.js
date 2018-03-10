@@ -1,6 +1,5 @@
 import React from 'react';
 import blogService from './../services/blogs'
-import User from './User'
 import Navigation from './Navigation'
 
 class MainPage extends React.Component{
@@ -55,10 +54,12 @@ class MainPage extends React.Component{
       }
       
       changeTitle = (event) => {
+        event.preventDefault();
         this.setState({title: event.target.value});
         }
     
       changeUrl = (event) => {
+        event.preventDefault();
         this.setState({url: event.target.value});
         }
     
@@ -72,30 +73,27 @@ class MainPage extends React.Component{
                 <button onClick={this.logOutFromBlog} type='submit'>Logout</button>
                     
                     <h2> Create new blog: </h2>
-                        <form onSubmit={this.createNewBlog.bind(this)}>
+                      
+                        <form onSubmit={this.createNewBlog}>
                             <div>
                                 <input 
                                     type='text' 
-                                    value={this.state.title}
                                     placeholder='Title' 
-                                    onChange={this.changeTitle} 
-                                    name='title'
+                                    onChange={this.changeTitle.bind(this)} 
                                     required
                                 />
                             </div>
                             <div>
                                 <input 
-                                    type='text' 
-                                    value={this.state.url}
+                                    type='text'
                                     placeholder='Url'
-                                    onChange={this.changeUrl}  
-                                    name='url'
+                                    onChange={this.changeUrl.bind(this)}  
                                     required
                                     />
                             </div>
                             <button type='submit'>Save</button>
                         </form>
-                        <User />
+                        
                 </div>
         )  
     }

@@ -2,14 +2,20 @@ import React from 'react'
 import ExpandedBlog from './ExpandedBlog'
 import blogService from './../services/blogs';
 import Navigation from './Navigation';
+import { Link } from 'react-router'
+import './style.css'
 
 class Blog extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      blogs: [],
-      comment: [],
-      newComment: null
+      blogs:[],
+      newBlog: {
+        title: '',
+        url: '',
+        author: '',
+        likes: 0
+      }
     }
   }
 
@@ -21,6 +27,8 @@ class Blog extends React.Component {
       this.setState({ blogs: sortedBlogs });
     })
   }
+
+
 
  deleteBlog = (blogToDelete) => {   
   let deleteBlogMessage = window.confirm("Are you sure you want to delete blog?");
@@ -50,13 +58,7 @@ class Blog extends React.Component {
       
   }
 }
-
- /*showDeleteButton = () => {
-   this.state.blogs.map(blog => {
-    return !blog.user || blog.user.username === user.username;
-   })
-  }
- */
+ 
   
  expandBlog = (blogToExpand) => {
     let foundBlogIndex = this.state.blogs.findIndex(blog => blog.id === blogToExpand.id); 
@@ -84,38 +86,26 @@ class Blog extends React.Component {
     }
   }
 
-   addCommentToBlog = async (blog) => {
-      let newComment = await blogService.createComments(blog, this.state.newComment);
-      if(newComment) {
-        let comment = this.state.comment;
-        comment.push(newComment);
-    
-        this.setState({comment});
-      }
-  }
-
-  changeComment = (event) => {
-    event.preventDefault();
-    this.setState({comment: event.target.value});
-    }
-
   render() {
-
     return (
       <div>
         <Navigation />
         <h2> KAIKKI BLOGIT </h2>
+
             {this.state.blogs.map((blog, index)  => {
                 if(index !== this.state.expandedBlogIndex) {
                   return(
                   <div>
-                    <div onClick={() => this.expandBlog(blog)}>{blog.title}
+                    <Link to={'/blogs' + '/' + blog.id}  onClick={() => this.expandBlog(blog)}>{blog.title}
                       <button onClick={() => this.deleteBlog(blog)} type="submit" >Delete</button>
-                  </div>
+                  </Link>
                 </div>
                   )
                 } else {
-                   return <ExpandedBlog blog={blog} changeComment={this.changeComment} comment={() => this.addCommentToBlog(blog)} likeBlog={this.likeBlog.bind(this)} removeExpand={this.expandBlog.bind(this)} />
+                   return <ExpandedBlog 
+                      key={blog.id} blog={blog} 
+                      likeBlog={this.likeBlog.bind(this)} 
+                      removeExpand={this.expandBlog.bind(this)} />
                 }
               })
             }

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router';
-
+import './style.css';
 
 export default class Navigation extends React.Component {
 
@@ -8,10 +8,10 @@ export default class Navigation extends React.Component {
         return(
             <ul className='navi'>
                 {this.props.children}
-                <li><Link to={"/users"}>User</Link></li>
-                <li><Link to={"/blogs"}>Blogs</Link></li>
-                <li><Link to={"/login"}>Logout</Link></li>
+                <li className ='navia'><Link to={'/main'}>Home</Link></li>
+                <li className ='navia'><Link to={'/users'}>User</Link></li>
+                <li className ='navia'><Link to={'/blogs'}>Blogs</Link></li>
             </ul>
-        )
+        );
     }
 }

@@ -1,25 +1,17 @@
 import React from 'react';
 import blogService from './../services/blogs'
-import User from './User'
 import Navigation from './Navigation'
 
 class MainPage extends React.Component{
     constructor(props) {
         super(props)
         this.state = {
-          blogs: [],
-          newBlog: {
-            title: '',
-            url: '',
-            author: '',
-            comment: ''
-          },
           error: null
         }
       }
+    
 
-
-    createNewBlog = async(e) => {
+      createNewBlog = async(e) => {
         e.preventDefault();
         if(this.state.newBlog.title && this.state.newBlog.url) {
           let newBlog = await blogService.create(this.state.newBlog);
@@ -33,6 +25,15 @@ class MainPage extends React.Component{
         this.state.blogs.title = '';
         this.state.blogs.url = '';
       }
+    
+      changeTitle = (event) => {
+        this.setState({title: event.target.value});
+        }
+    
+      changeUrl = (event) => {
+        this.setState({url: event.target.value});
+        }
+
 
       logOutFromBlog = async (event) => {
         event.preventDefault();
@@ -54,52 +55,43 @@ class MainPage extends React.Component{
         })
       }
       
-      changeTitle = (event) => {
-        this.setState({title: event.target.value});
-        }
-    
-      changeUrl = (event) => {
-        this.setState({url: event.target.value});
-        }
-    
-
     render(){
+
         return (
             <div>
                 <Navigation />
                 <h2>Blogs</h2>
-                <p>{this.state.username} logged in</p>
+                <p>Jaana logged in</p>
+                <form onSubmit={this.createNewBlog.bind(this)}>
+                
+                      <div>
+                        <input 
+                            type='text' 
+                            value={this.state.title}
+                            placeholder='Title' 
+                            onChange={this.changeTitle.bind(this)} 
+                            required
+                        />
+                      </div>
+                        <div>
+                          <input 
+                              type='text' 
+                              value={this.state.url}
+                              placeholder='Url'
+                              onChange={this.changeUrl.bind(this)} 
+                              required
+                              />
+                        </div>
+                       <button type='submit'>Save</button>
+                  </form>
+
                 <button onClick={this.logOutFromBlog} type='submit'>Logout</button>
-                    
-                    <h2> Create new blog: </h2>
-                        <form onSubmit={this.createNewBlog.bind(this)}>
-                            <div>
-                                <input 
-                                    type='text' 
-                                    value={this.state.title}
-                                    placeholder='Title' 
-                                    onChange={this.changeTitle} 
-                                    name='title'
-                                    required
-                                />
-                            </div>
-                            <div>
-                                <input 
-                                    type='text' 
-                                    value={this.state.url}
-                                    placeholder='Url'
-                                    onChange={this.changeUrl}  
-                                    name='url'
-                                    required
-                                    />
-                            </div>
-                            <button type='submit'>Save</button>
-                        </form>
-                        <User />
-                </div>
+
+                
+            </div>
         )  
     }
     
-}
+  }
 
 export default MainPage;

@@ -27,19 +27,19 @@ const configHeaders = () => {
   }
 }
 
-const createComments = async (blog, comment) => {
+/*const createComments = async (blog, comment) => {
   let url = baseUrl + '/' + blog.id + '/comment';
 
   if(!getToken()) {
-    console.log('not logged in, not authorized to create commit');
-    return false;
+    console.log('not logged in, not authorized to create comments');
+      return false;
   }
 
   const response = await axios
     .post(url, comment, configHeaders())
-  return response.data;
+      return response.data;
 }
-
+*/
 const create = async (blog) => {
   
   if(!getToken()) {
@@ -69,4 +69,4 @@ const deleteBlog = async (id) => {
 }
 
 
-export default { getAll, create, update, deleteBlog, getAllUsers, createComments }
+export default { getAll, create, update, deleteBlog, getAllUsers }

@@ -1,0 +1,35 @@
+.navi {
+    background-color: #f2f2f2;
+    overflow: hidden;
+}
+
+.navia {
+    float: left;
+    list-style-type: none;
+    font-size: 17px;
+    display: block;
+    color: black;
+    padding: 14px 16px;
+}
+
+.user {
+    color: rgb(247, 9, 223);
+    padding: 5px 50px;
+    list-style-type: none;
+
+ }
+
+ .users {
+    color: rgb(92, 50, 88);
+    padding: 20px 3px;
+    list-style-type: none;
+
+ }
+
+ .s {
+    padding: 20px 3px;
+
+ }
+
+
+
